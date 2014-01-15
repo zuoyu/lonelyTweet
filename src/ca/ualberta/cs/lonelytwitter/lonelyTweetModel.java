@@ -2,10 +2,11 @@ package ca.ualberta.cs.lonelytwitter;
 
 import java.util.Date;
 
-public class lonelyTweetModel
+public abstract class lonelyTweetModel
 {
-	private String text;
-	private Date timestamp;
+	protected String text;
+	protected Date timestamp;
+	protected boolean important;
 	//---------------------NOTE----------------------
 	//private -only can see it in the current class.
 	//.....    current class + package.
@@ -21,19 +22,17 @@ public class lonelyTweetModel
 		return text;
 	}
 	
-	public void setText(String text)
-	{
+	public abstract void setText(String text);
+
 	
-		this.text = text;
-		// it pass an valuable which also called text.
-		// "this" is a keyword the difference "String text" and "private String text"
-	}
 	
 	public Date getTimestamp()
 	{
 	
 		return timestamp;
 	}
+	
+	
 	
 	public void setTimestamp(Date timestamp)
 	{
@@ -60,4 +59,9 @@ public class lonelyTweetModel
 		this.timestamp = new Date();
 	}
 	
+	public boolean getImportant()
+	{
+		return important;
+	}
+	public abstract void setImportant(boolean important)throws Exception;
 }
