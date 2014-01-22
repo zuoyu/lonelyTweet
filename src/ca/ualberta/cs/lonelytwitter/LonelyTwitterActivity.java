@@ -84,6 +84,9 @@ public class LonelyTwitterActivity extends Activity {
 					String texti = tweet.getText();
 					String datei = tweet.getTimestamp().toString();
 					tweets.add(datei+"|"+texti);	
+				} catch (EndOfFile e){
+					e.printStackTrace();
+				}
 					
 
 			} catch (FileNotFoundException e) {
