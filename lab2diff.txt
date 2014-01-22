@@ -1,0 +1,222 @@
+diff --git a/src/ca/ualberta/cs/lonelytwitter/ConcreteTweetView.java b/src/ca/ualberta/cs/lonelytwitter/ConcreteTweetView.java
+new file mode 100644
+index 0000000..c9cf66d
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/ConcreteTweetView.java
+@@ -0,0 +1,14 @@
++package ca.ualberta.cs.lonelytwitter;
++
++
++public class ConcreteTweetView implements TweetView
++{
++
++	public String formatTweet(LonelyTweetModel lt)
++	{
++
++		// TODO Auto-generated method stub
++		return lt.getTimestamp().toString() + " | " + lt.getText();
++	}
++
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/ImportantTweetModel.java b/src/ca/ualberta/cs/lonelytwitter/ImportantTweetModel.java
+new file mode 100644
+index 0000000..2cadd2b
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/ImportantTweetModel.java
+@@ -0,0 +1,46 @@
++package ca.ualberta.cs.lonelytwitter;
++
++import java.util.Date;
++
++
++public class ImportantTweetModel extends LonelyTweetModel
++{
++
++	public ImportantTweetModel(String text, Date timestamp)
++	{
++
++		super(text, timestamp);
++		// TODO Auto-generated constructor stub
++	}
++
++	public ImportantTweetModel(String text)
++	{
++
++		super(text);
++		// TODO Auto-generated constructor stub
++	}
++	public void setText(String text)
++	{
++		this.text = text;
++	}
++
++	
++	@Override
++	public void setTimestamp(Date timestamp)
++	{
++
++		// TODO Auto-generated method stub
++		
++	}
++	
++	@Override
++	public void setImportant(boolean important) throws Exception
++	{
++		if (!important)
++		{
++			throw new IllegalArgumentException();
++		}
++		this.important = important;
++	}
++
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/LonelyTweetModel.java b/src/ca/ualberta/cs/lonelytwitter/LonelyTweetModel.java
+new file mode 100644
+index 0000000..a83d1ae
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/LonelyTweetModel.java
+@@ -0,0 +1,67 @@
++package ca.ualberta.cs.lonelytwitter;
++
++import java.util.Date;
++
++public abstract class LonelyTweetModel
++{
++	protected String text;
++	protected Date timestamp;
++	protected boolean important;
++	//---------------------NOTE----------------------
++	//private -only can see it in the current class.
++	//.....    current class + package.
++	//protected - class + + package.
++	//public  -anywhere
++	
++	
++	//right click the .java then click the source then click the setters and getter
++	//have return type
++	public String getText()
++	{
++	
++		return text;
++	}
++	
++	public abstract void setText(String text);
++
++	
++	
++	public Date getTimestamp()
++	{
++	
++		return timestamp;
++	}
++	
++	
++	
++	public void setTimestamp(Date timestamp)
++	{
++	
++		this.timestamp = timestamp;
++	}
++	
++	
++	//right click the .java then click the source then click Field
++	//can only have one.
++	public LonelyTweetModel(String text, Date timestamp)
++	{
++		//this(); run itself it can use for the recursion
++		super();
++		this.text = text;
++		this.timestamp = timestamp;
++	}
++	
++	
++	public LonelyTweetModel(String text)
++	{
++		super();
++		this.text = text;
++		this.timestamp = new Date();
++	}
++	
++	public boolean getImportant()
++	{
++		return important;
++	}
++	public abstract void setImportant(boolean important)throws Exception;
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/NormalTweetModel.java b/src/ca/ualberta/cs/lonelytwitter/NormalTweetModel.java
+new file mode 100644
+index 0000000..5f4d264
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/NormalTweetModel.java
+@@ -0,0 +1,28 @@
++package ca.ualberta.cs.lonelytwitter;
++
++public class NormalTweetModel extends LonelyTweetModel
++{
++
++
++	public NormalTweetModel(String text)
++	{
++		super(text);
++	}
++
++	@Override
++	public void setText(String text)
++	{
++
++	}
++	
++	@Override
++	public void setImportant(boolean important) throws Exception
++	{
++		if (important)
++		{
++			throw new IllegalArgumentException();
++		}
++		this.important = important;
++	}
++
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/TweetListModel.java b/src/ca/ualberta/cs/lonelytwitter/TweetListModel.java
+new file mode 100644
+index 0000000..73b17fa
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/TweetListModel.java
+@@ -0,0 +1,24 @@
++package ca.ualberta.cs.lonelytwitter;
++
++import java.util.ArrayList;
++
++
++public class TweetListModel
++{
++	private ArrayList<LonelyTweetModel> list;
++
++	
++	public ArrayList<LonelyTweetModel> getList()
++	{
++	
++		return list;
++	}
++
++	
++	public void setList(ArrayList<LonelyTweetModel> list)
++	{
++	
++		this.list = list;
++	}
++	
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/TweetView.java b/src/ca/ualberta/cs/lonelytwitter/TweetView.java
+new file mode 100644
+index 0000000..3938ac5
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/TweetView.java
+@@ -0,0 +1,7 @@
++package ca.ualberta.cs.lonelytwitter;
++
++
++public interface TweetView
++{
++	String formatTweet(LonelyTweetModel lt);
++}
